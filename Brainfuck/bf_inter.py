@@ -3,11 +3,12 @@ More on Brainfuck: https://en.wikipedia.org/wiki/Brainfuck
 
 Usage:
     br_inter -h
-    br_inter <file> [--max-len=<length>] [--max-num=<number>] [-d] 
+    br_inter <file> [--max-len=<length>] [--max-num=<number>] [-t] [-c] 
 
 Options:
     -h, --help          Show this screen.
-    -d, --debug         Shows the tape and the command being executed.
+    -t, --tape          Shows the tape and the command being executed.
+    -c, --checkpoints   Shows parsed commands and checkpoints (used for loops).
     file                The Brainfuck file (.txt) to interpret.
     --max-len=<length>  The maximum length of tape (int) [default: 128].
     --max-num=<number>  Maximum allowed number on the tape (absolute value) [default: 256].
@@ -20,7 +21,8 @@ if __name__ == '__main__':
 
     max_len = int(arguments['--max-len'])
     max_num = int(arguments['--max-num'])
-    debug = True if arguments["--debug"] else False
+    debug_tape = True if arguments["--tape"] else False
+    debug_cp = True if arguments["--checkpoints"] else False
 
     # Converting file to string.
     bf_file_name = arguments['<file>']
@@ -31,7 +33,7 @@ if __name__ == '__main__':
     recognised_commands = ['>', '<', '+', '-', '.', ',', '[', ']']
     commands = [char for char in bf_str if char in recognised_commands]
     # Print commands (DEBUG).
-    if debug: print('commands', commands)
+    if debug_cp: print('commands', commands)
 
     # Setup
     tape = deque()
@@ -104,7 +106,7 @@ if __name__ == '__main__':
             else:
                 checkpoints.append(cmd_index)
                 # Print checkpoints (DEBUG).
-                if debug: print('cp', checkpoints)
+                if debug_cp: print('cp', checkpoints)
 
             
         elif cmd == ']':
@@ -116,11 +118,11 @@ if __name__ == '__main__':
                 checkpoints.pop()
 
             # Print checkpoints (DEBUG).
-            if debug: print('cp', checkpoints)
+            if debug_cp: print('cp', checkpoints)
                 
 
         # Shows tape (DEBUG).
-        if debug: print(f'({commands[cmd_index]})', list(tape))
+        if debug_tape: print(f'({commands[cmd_index]})', list(tape))
 
         # Move onto next command.
         cmd_index += 1
