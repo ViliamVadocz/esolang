@@ -43,7 +43,12 @@ if __name__ == '__main__':
 
     # Interpreter
     cmd_index = 0
-    while cmd_index < len(commands) and len(tape) <= max_len:
+    while cmd_index < len(commands):
+        # Break if tape is too long.
+        if len(tape) > max_len:
+            print('Maximum tape length exceeded.')
+            break
+
         cmd = commands[cmd_index]
 
         # >	increment the data pointer (to point to the next cell to the right).
@@ -76,12 +81,14 @@ if __name__ == '__main__':
         
         elif cmd == '+':
             tape[tape_index] += 1
+            # Break if value to large.
             if abs(tape[tape_index]) > max_num:
                 print('Maximum number exceeded.')
                 break
 
         elif cmd == '-':
             tape[tape_index] -= 1
+            # Break if value to large.
             if abs(tape[tape_index]) > max_num:
                 print('Maximum number exceeded.')
                 break
