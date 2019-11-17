@@ -9,8 +9,8 @@ Slightly modified for my own use (extra command ; ).
 +   Increase the value at the pointer by one.
 -   Decrease the value at the pointer by one.
 
-.   Output the value at the pointer as an integer.
-;   Output the value at the pointer as an ASCII character.
+;   Output the value at the pointer as an integer.
+.   Output the value at the pointer as an ASCII character.
 
 ,   Input a value at the location of the pointer.
     Accepts integers or single ASCII characters.
@@ -50,7 +50,7 @@ if __name__ == '__main__':
     bf_str = ''.join(list(bf_file))
 
     # Parsing file string for commands.
-    recognised_commands = ['>', '<', '+', '-', '.', ';', ',', '[', ']']
+    recognised_commands = ['>', '<', '+', '-', ';', '.', ',', '[', ']']
     commands = [char for char in bf_str if char in recognised_commands]
     assert commands.count('[') == commands.count(']'), 'Bracket mismatch. Number of [ and ] does not match.'
     # Print commands (DEBUG).
@@ -97,10 +97,10 @@ if __name__ == '__main__':
                 print('Maximum number exceeded.')
                 break
 
-        elif cmd == '.':
+        elif cmd == ';':
             print(tape[tape_index])
 
-        elif cmd == ';':
+        elif cmd == '.':
             print(chr(tape[tape_index]))
         
         elif cmd == ',':
