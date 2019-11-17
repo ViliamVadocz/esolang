@@ -52,6 +52,7 @@ if __name__ == '__main__':
     # Parsing file string for commands.
     recognised_commands = ['>', '<', '+', '-', '.', ';', ',', '[', ']']
     commands = [char for char in bf_str if char in recognised_commands]
+    assert commands.count('[') == commands.count(']'), 'Bracket mismatch. Number of [ and ] does not match.'
     # Print commands (DEBUG).
     if debug_cp: print('commands', commands)
 
@@ -129,8 +130,10 @@ if __name__ == '__main__':
                 closes = 0
                 while opens != closes:
                     cmd_index += 1
-                    if commands[cmd_index] == '[': opens += 1
-                    elif commands[cmd_index] == ']': closes += 1
+                    if commands[cmd_index] == '[': 
+                        opens += 1
+                    elif commands[cmd_index] == ']': 
+                        closes += 1
             
             # Begin loop.
             else:
