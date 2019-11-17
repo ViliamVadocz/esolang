@@ -1,5 +1,25 @@
 """Brainfuck Interpreter by Viliam Vadocz.
+
 More on Brainfuck: https://en.wikipedia.org/wiki/Brainfuck
+Slightly modified for my own use (extra command ; ).
+
+>   Move the pointer to the right by one space.
+<   Move the pointer to the left by one space.
+
++   Increase the value at the pointer by one.
+-   Decrease the value at the pointer by one.
+
+.   Output the value at the pointer as an integer.
+;   Output the value at the pointer as an ASCII character.
+
+,   Input a value at the location of the pointer.
+    Accepts integers or single ASCII characters.
+
+[   If the value at the pointer is zero, jump forward in the code
+    to the corresponding ] command. Otherwise continue onto the next command.
+
+]   If the value at the pointer is non-zero, jump backward in the code
+    to the corresponding [ command. Otherwise continue onto the next command.
 
 Usage:
     br_inter -h
@@ -30,7 +50,7 @@ if __name__ == '__main__':
     bf_str = ''.join(list(bf_file))
 
     # Parsing file string for commands.
-    recognised_commands = ['>', '<', '+', '-', '.', ',', '[', ']']
+    recognised_commands = ['>', '<', '+', '-', '.', ';', ',', '[', ']']
     commands = [char for char in bf_str if char in recognised_commands]
     # Print commands (DEBUG).
     if debug_cp: print('commands', commands)
@@ -50,23 +70,6 @@ if __name__ == '__main__':
             break
 
         cmd = commands[cmd_index]
-
-        # >	increment the data pointer (to point to the next cell to the right).
-        # <	decrement the data pointer (to point to the next cell to the left).
-
-        # +	increment (increase by one) the byte at the data pointer.
-        # -	decrement (decrease by one) the byte at the data pointer.
-
-        # .	output the byte at the data pointer.
-        # ,	accept one byte of input, storing its value in the byte at the data pointer.
-
-        # [	if the byte at the data pointer is zero, 
-        # then instead of moving the instruction pointer forward to the next command, 
-        # jump it forward to the command after the matching ] command.
-
-        # ]	if the byte at the data pointer is nonzero, 
-        # then instead of moving the instruction pointer forward to the next command, 
-        # jump it back to the command after the matching [ command.
 
         if cmd == '>':
             tape_index += 1
@@ -95,9 +98,29 @@ if __name__ == '__main__':
 
         elif cmd == '.':
             print(tape[tape_index])
+
+        elif cmd == ';':
+            print(chr(tape[tape_index]))
         
         elif cmd == ',':
-            tape[tape_index] = input('INPUT:')
+            user_input = input('INPUT:')
+            # Interpret empty input as 0.
+            if user_input == '':
+                tape[tape_index] = 0
+
+            else:
+                try:
+                    # Interpret as integer. 
+                    tape[tape_index] = int(user_input)
+
+                except ValueError:
+                    try:
+                        # Interpret as ASCII character.
+                        tape[tape_index] = ord(user_input)
+
+                    except TypeError:
+                        print('Input only accepts integers or single ASCII characters.')
+                        break
 
         elif cmd == '[':
             # Skip ahead.
