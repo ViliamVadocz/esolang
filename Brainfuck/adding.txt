@@ -1,0 +1,11 @@
+adding
+
+establish start with a negative 1
+-
+enter numbers
+4 >++++
+5 >+++++
+3 >+++
+8 >++++++++
+collect numbers
++[- >[-<+>]< <+]- >.
