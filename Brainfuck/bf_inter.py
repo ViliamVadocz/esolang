@@ -29,7 +29,7 @@ Options:
     -h, --help          Show this screen.
     -t, --tape          Shows the tape and the command being executed.
     -c, --checkpoints   Shows parsed commands and checkpoints (used for loops).
-    file                The Brainfuck file (.txt) to interpret.
+    file                The Brainfuck file (.bf) to interpret.
     --max-len=<length>  The maximum length of tape (int) [default: 128].
     --max-num=<number>  Maximum allowed number on the tape (absolute value) [default: 256].
 """
