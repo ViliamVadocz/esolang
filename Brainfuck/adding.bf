@@ -1,11 +1,8 @@
 adding
 
-establish start with a negative 1
--
-
 enter numbers
-0 ends the numbers
-[>,]
+0 terminates the series
+,[>,]
 
-collect numbers
-+[- >[-<+>]< <+]- >;
+sum numbers
+<[> [-<+>] <<]> ;
