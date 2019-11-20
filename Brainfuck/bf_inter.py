@@ -72,6 +72,9 @@ if __name__ == '__main__':
 
         cmd = commands[cmd_index]
 
+        # Shows tape (DEBUG).
+        if debug_tape: print(f'({commands[cmd_index]})', list(tape))
+
         if cmd == '>':
             tape_index += 1
             if tape_index >= len(tape):
@@ -152,10 +155,6 @@ if __name__ == '__main__':
 
             # Print checkpoints (DEBUG).
             if debug_cp: print('cp', checkpoints)
-                
-
-        # Shows tape (DEBUG).
-        if debug_tape: print(f'({commands[cmd_index]})', list(tape))
 
         # Move onto next command.
         cmd_index += 1
